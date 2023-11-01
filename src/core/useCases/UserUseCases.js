@@ -8,15 +8,16 @@ class UserUseCases {
     try {
       // Basic validation: Ensure all required fields are provided
       if (!userData.username || !userData.email || !userData.password) {
-        throw new Error('Invalid input data');
+        throw new Error("Invalid input data");
       }
 
       // Check if a user with the same email already exists
-      const existingUser = await this.userService.findUserByEmail(userData.email);
+      const existingUser = await this.userService.findUserByEmail(
+        userData.email
+      );
       if (existingUser) {
-        throw new Error('User already exists');
+        throw new Error("User already exists");
       }
-
 
       // Store the user data in the database through the UserService
       const newUser = await this.userService.registerUser({
@@ -28,12 +29,23 @@ class UserUseCases {
 
       return newUser;
     } catch (error) {
-      throw new Error('User registration failed');
+      throw new Error("User registration failed");
     }
   }
 
-  async authenticateUser(username, password) {
+  async authenticateUser(email, password) {
     // Add authentication logic, password hashing, and validation here
+    try {
+      // Basic validation: Ensure all required fields are provided
+      if (!email || !password) {
+        throw new Error("Invalid input data");
+      }
+
+      const user = await this.userService.authenticateUser(email, password);
+      return user;
+    } catch (error) {
+      throw new Error("User authentication failed");
+    }
   }
 
   // Add other use cases like updateUser, deleteUser, etc.
