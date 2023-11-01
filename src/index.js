@@ -3,7 +3,7 @@ const app = express();
 
 const userRoutes = require('./interfaces/routes/userRoutes');
 const { dbConfig } = require('./interfaces/config');
-const db = require('./infrastructure/dataAccess/Database')(dbConfig);
+const db = require('./infrastructure/data-access/database')(dbConfig);
 const UserUseCases = require('./core/useCases/UserUseCases');
 const UserService = require('./application/services/UserService');
 
