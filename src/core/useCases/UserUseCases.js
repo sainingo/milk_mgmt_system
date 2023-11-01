@@ -1,3 +1,5 @@
+const validateEmail = require("../helpers/is-valid-email");
+
 // core/useCases/UserUseCases.js
 class UserUseCases {
   constructor(userService) {
@@ -17,6 +19,11 @@ class UserUseCases {
       );
       if (existingUser) {
         throw new Error("User already exists");
+      }
+
+      // Check if the email is valid
+      if (!validateEmail(userData.email)) {
+        throw new Error("Invalid email");
       }
 
       // Store the user data in the database through the UserService
@@ -47,6 +54,7 @@ class UserUseCases {
       throw new Error("User authentication failed");
     }
   }
+
 
   // Add other use cases like updateUser, deleteUser, etc.
 }

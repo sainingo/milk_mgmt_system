@@ -9,7 +9,7 @@ module.exports = (userUseCases) => {
 
   // Define user-related routes
   router.post('/register', userController.registerUser);
-  // Add other routes for user management
+  router.post('/login', userController.loginUser);
 
   return router;
 };

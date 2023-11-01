@@ -9,10 +9,11 @@ const UserService = require('./application/services/UserService');
 
 const PORT = process.env.PORT || 3000;
 
+
 // Initialize database connection
 db.execute('SELECT 1')
   .then(() => {
-    console.log('Connected to the database');
+    return true;
   })
   .catch((error) => {
     console.error('Database connection error:', error);
