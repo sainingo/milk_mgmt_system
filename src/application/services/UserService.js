@@ -1,34 +1,38 @@
 // application/services/UserService.js
+const bcrypt = require('bcrypt');
+
 class UserService {
-    constructor(db) {
-      this.db = db;
-    }
-  
-    async registerUser(userData) {
-      // Add registration logic, validation, and database interaction here
+  constructor(db) {
+    this.db = db;
+  }
 
-      try {
-        // basic validation
-        if (!userData.username || !userData.password || !userData.email) {
-          throw new Error('Invalid input data');
-        }
-        
-        const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
-        const values = [userData.username, userData.email, password];
-  
-        // Execute the SQL query using the database connection
-        const [result] = await this.db.execute(query, values);
-  
-        return result;
+  async registerUser(userData) {
+    // Add registration logic, validation, and database interaction here
 
-        
-      } catch (error) {
-        throw new Error('User registration failed', error);
+    try {
+      // basic validation
+      if (!userData.username || !userData.password || !userData.email) {
+        throw new Error('Invalid input data');
       }
 
+      const hashedPassword = await bcrypt.hash(userData.password, 10);
 
-      // Store the user data in the database using userRepository
+      const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
+      const values = [userData.username, userData.email, hashedPassword];
+
+      // Execute the SQL query using the database connection
+      const [result] = await this.db.execute(query, values);
+
+      return result;
+
+
+    } catch (error) {
+      throw new Error('User registration failed', error);
     }
+
+
+    // Store the user data in the database using userRepository
+  }
 
 
   async findUserByEmail(email) {
@@ -50,7 +54,6 @@ class UserService {
     }
   }
 
-  }
-  
-  module.exports = UserService;
-  
+}
+
+module.exports = UserService;
