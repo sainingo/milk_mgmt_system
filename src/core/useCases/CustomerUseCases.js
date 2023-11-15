@@ -3,9 +3,7 @@ class CustomerUseController {
         this.CustomerService = CustomerService;
     }
 
-    async registerCustomer(req, res) {
-        // Extract data from the request
-        const customerData = req.body;
+    async registerCustomer(customerData) {
 
         try {
             // Call the use case
@@ -14,7 +12,7 @@ class CustomerUseController {
             return newCustomer;
 
         } catch (error) {
-            res.status(400).json({ error: error.message });
+            throw new Error("User registration failed");
         }
     }
 }
