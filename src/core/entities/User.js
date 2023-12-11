@@ -6,7 +6,6 @@ class User {
       this.fullName = fullName;
       this.email = email;
     }
-    // Add methods and validation as needed
   }
   
 module.exports = User;
