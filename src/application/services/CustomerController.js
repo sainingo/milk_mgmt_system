@@ -15,7 +15,7 @@ class CustomerService {
             const query =
                 "INSERT INTO customers (first_name, last_name, location, contact_number,id_number, email, id_photo) VALUES (?, ?, ?, ?, ?, ?, ?)";
             const values = [first_name, last_name, location, contact_number, id_number, email, id_photo];
-
+                
             // Execute the SQL query using the database connection
             const [result] = await this.db.execute(query, values);
 

@@ -31,7 +31,6 @@ class UserUseCases {
         username: userData.username,
         email: userData.email,
         password: userData.password,
-        // Other user-related data
       });
 
       return newUser;
